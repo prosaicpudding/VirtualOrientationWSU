@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.client.wsu.shared.Shared;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -54,23 +54,33 @@ public class Questionnaire extends ActionBarActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_questionnaire, menu);
+        getMenuInflater().inflate(R.menu.menu_adding_contact, menu);
+        MenuItem item=menu.findItem(R.id.notification_settings);
+        item.setTitle(Shared.notifyies[Shared.noti]);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
+        }else if(id==R.id.notification_settings){
+            if(item.getTitle().equals(Shared.notifyies[0])) {
+                item.setTitle(Shared.notifyies[1]);
+                Shared.noti=1;
+                Toast.makeText(this, "You Turned OFF Notifications", Toast.LENGTH_LONG).show();
 
+            }else if(item.getTitle().equals(Shared.notifyies[1])) {
+                item.setTitle(Shared.notifyies[0]);
+                Shared.noti=0;
+                Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,22 +105,8 @@ public class Questionnaire extends ActionBarActivity implements View.OnClickList
     }
 
     private void populate() {
-        advisors = new HashMap<>();
-        advisors.put("Computer Science Graduate", "Name:Graduate advisor \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.put("Computer Science UnderGrad","Name:UnderGraduate advisor \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.put("Electronics and Electricals Graduate","Name:Graduate advisor \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.put("Electronics and Electricals UnderGrad","Name:UnderGraduate advisor \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
 
-        reqtasks =new HashSet<>();
-        reqtasks.add("Get Cougar Card : 1/13");
-        reqtasks.add("Submit W4 form : 1/14");
-        reqtasks.add("Register for Classes : 1/15");
-        reqtasks.add("Meet Sidra : 1/15");
 
-        unreqtasks =new HashSet<>();
-        unreqtasks.add("Check Walmart");
-        unreqtasks.add("Check Car Rentals");
-        unreqtasks.add("Check Chinese Food");
 
 
 

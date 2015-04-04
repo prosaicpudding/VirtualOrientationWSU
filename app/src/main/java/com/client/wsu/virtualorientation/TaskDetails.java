@@ -4,8 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.client.wsu.shared.Shared;
 
@@ -18,7 +23,25 @@ public class TaskDetails extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
         b=(TextView)findViewById(R.id.details);
+        RelativeLayout lay=(RelativeLayout)findViewById(R.id.rellay);
         LinearLayout view=(LinearLayout)b.getParent();
+        RadioButton rb=(RadioButton)findViewById(R.id.radioButton);
+        ViewGroup vg=(ViewGroup)lay;
+        ToggleButton tb=(ToggleButton)findViewById(R.id.toggleButton);
+        vg.removeView(tb);
+        rb.setChecked(false);
+        switch (Shared.running){
+            case 0:
+                if(Shared.reqtasks.get(Shared.postition).split("#").length>1) {
+                    rb.setChecked(true);
+                    vg.addView(tb);
+                }break;
+            case 1:
+                if(Shared.unreqtasks.get(Shared.postition).split("#").length>1) {
+                    rb.setChecked(true);
+                    vg.addView(tb);
+                }break;
+        }
         int i=1;
             TextView tv=new TextView(this);
         switch (Shared.running){
@@ -29,8 +52,9 @@ public class TaskDetails extends ActionBarActivity {
                 tv.setText(Shared.unreqtasksdetails.get(Shared.postition));
                 break;
         }
-
-            view.addView(tv);
+        view.removeView(lay);
+        view.addView(tv);
+        view.addView(lay);
         view.invalidate();
 
 
@@ -39,23 +63,32 @@ public class TaskDetails extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_task_details, menu);
+        getMenuInflater().inflate(R.menu.menu_adding_contact, menu);
+        MenuItem item=menu.findItem(R.id.notification_settings);
+        item.setTitle(Shared.notifyies[Shared.noti]);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }
+        }else if(id==R.id.notification_settings){
+            if(item.getTitle().equals(Shared.notifyies[0])) {
+                item.setTitle(Shared.notifyies[1]);
+                Shared.noti=1;
+                Toast.makeText(this, "You Turned OFF Notifications", Toast.LENGTH_LONG).show();
 
+            }else if(item.getTitle().equals(Shared.notifyies[1])) {
+                item.setTitle(Shared.notifyies[0]);
+                Shared.noti=0;
+                Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -39,7 +39,8 @@ public class TaskAdapter extends ArrayAdapter<String>{
             v = vi.inflate(R.layout.task_item, null);
 
         }
-        String str[]=getItem(position).split("bca");
+
+        String str[]=getItem(position).split("#")[0].split("bca");
         CheckBox cb=(CheckBox)v.findViewById(R.id.checkBox1);
         if(str.length>1 ){
             if(str[1].equals("1"))

@@ -11,5 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:id="@+id/details"/>
+        android:id="@+id/details" />
+
+    <RelativeLayout
+        android:id="@+id/rellay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shared"
+            android:id="@+id/radioButton"
+            android:layout_alignParentTop="true" />
+
+        <ToggleButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:id="@+id/toggleButton"
+            android:layout_below="@id/radioButton"
+            android:textOff="Unlike"
+            android:textOn="Like" />
+
+    </RelativeLayout>
+
+
 </LinearLayout>

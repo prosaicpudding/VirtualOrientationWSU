@@ -20,8 +20,6 @@ import android.widget.Toast;
 import com.client.wsu.shared.Shared;
 import com.client.wsu.simplejava.TaskAdapter;
 
-import java.util.ArrayList;
-
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener {
 
@@ -31,11 +29,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     ArrayAdapter<String> advisorsList;
     private AbsListView mListView;
     private AbsListView advisorListView;
-    CheckBox[] reqtaskboxes,unreqtaskboxes;
     Context ctx;
 
     Button notify;
-    String notifyies[]={"Notifications OFF","Notifications ON"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +40,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mListViewFilter.setOnItemSelectedListener(this);
         mListView=(ListView)findViewById(R.id.listView);
         advisorListView=(ListView)findViewById(R.id.textView5);
-        notify=(Button)findViewById(R.id.offnotify);
-        notify.setOnClickListener(this);
-        notify.setText(notifyies[0]);
         mListView.setClickable(true);
         mListView.setOnItemClickListener(this);
         Button b=(Button)findViewById(R.id.add);
@@ -71,8 +64,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             startActivityForResult(i,50);
         }else{
             if(adapterViewFilter==null){
-                Shared.reqtasks=new ArrayList<>(Shared.prefs.getStringSet(Shared.types[0],null));
-                Shared.unreqtasks=new ArrayList<>(Shared.prefs.getStringSet(Shared.types[1],null));
                 if(Shared.reqtasks!=null && Shared.unreqtasks!=null) {
                     adapterViewFilter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Shared.types);
                     mListViewFilter.setAdapter(adapterViewFilter);
@@ -81,8 +72,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                     mListView.setClickable(true);
                     mListView.invalidate();
                     if(Shared.advisors==null){
-                        Shared.advisors=new ArrayList<>();
-                        Shared.advisors.add(Shared.prefs.getString("advisor","Details Not found"));
+                       // Shared.advisors=new ArrayList<>();
+                       // Shared.advisors.add(Shared.prefs.getString("advisor","Details Not found"));
                     }
 
                 }
@@ -98,21 +89,32 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_adding_contact, menu);
+        MenuItem item=menu.findItem(R.id.notification_settings);
+        item.setTitle(Shared.notifyies[Shared.noti]);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id==R.id.notification_settings){
+            if(item.getTitle().equals(Shared.notifyies[0])) {
+                item.setTitle(Shared.notifyies[1]);
+                Shared.noti=1;
+                Toast.makeText(this, "You Turned OFF Notifications", Toast.LENGTH_LONG).show();
+
+            }else if(item.getTitle().equals(Shared.notifyies[1])) {
+                item.setTitle(Shared.notifyies[0]);
+                Shared.noti=0;
+                Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,16 +152,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.offnotify) {
-            if (notify.getText().equals(notifyies[0])) {
-                notify.setText(notifyies[1]);
-                Toast.makeText(this,"You Turned ON Notifications",Toast.LENGTH_LONG).show();
-
-            } else {
-                notify.setText(notifyies[0]);
-                Toast.makeText(this,"You Turned OFF Notifications",Toast.LENGTH_LONG).show();
-            }
-        }else if(v.getId()==R.id.add){
+        if(v.getId()==R.id.add){
             Intent i=new Intent(this,AddingContact.class);
             startActivity(i);
         }else if(v.getId()==R.id.button2){
