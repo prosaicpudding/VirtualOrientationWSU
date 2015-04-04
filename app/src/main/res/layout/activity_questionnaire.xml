@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.client.wsu.virtualorientation.Questionnaire">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which level do you belong to?"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textStyle="bold"
+         />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level"
+        android:layout_below="@+id/textView"
+        android:gravity="center"
+         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which Major?"
+        android:layout_marginTop="50dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/level"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/major"
+        android:layout_below="@+id/textView2"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which Semester?"
+        android:layout_marginTop="50dp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/major"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sem"
+        android:layout_below="@+id/textView3"
+        android:gravity="center"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:id="@+id/button"
+        android:layout_below="@+id/sem"
+        android:layout_marginTop="50dp" />
+
+</RelativeLayout>
