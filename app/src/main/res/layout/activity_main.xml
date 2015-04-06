@@ -5,7 +5,7 @@
 
 
 
-    <TextView
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
@@ -16,12 +16,12 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         />
-
+-->
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_below="@+id/editText"
+        android:layout_alignParentTop="true"
         android:layout_margin="10dp"
         style="@style/Widget.AppCompat.Light.DropDownItem.Spinner" />
     <ListView

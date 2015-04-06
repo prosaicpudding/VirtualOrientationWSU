@@ -12,17 +12,19 @@ import com.client.wsu.shared.Shared;
 import com.client.wsu.virtualorientation.MainActivity;
 import com.client.wsu.virtualorientation.R;
 
+import org.apache.http.impl.cookie.DateUtils;
+
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by nitinpanuganti on 3/23/15.
  */
-public class TaskAdapter extends ArrayAdapter<String>{
+public class TaskAdapter extends ArrayAdapter<TaskItem>{
     MainActivity.CheckBoxListener listener;
 
 
-    public TaskAdapter(Context context, int resource, List<String> objects,MainActivity.CheckBoxListener listener) {
+    public TaskAdapter(Context context, int resource, List<TaskItem> objects,MainActivity.CheckBoxListener listener) {
         super(context, resource, objects);
         this.listener=listener;
         Shared.cbintmap=null;
@@ -40,14 +42,10 @@ public class TaskAdapter extends ArrayAdapter<String>{
 
         }
 
-        String str[]=getItem(position).split("#")[0].split("bca");
+        TaskItem taskItem=getItem(position);
+        String str=taskItem.getName();
         CheckBox cb=(CheckBox)v.findViewById(R.id.checkBox1);
-        if(str.length>1 ){
-            if(str[1].equals("1"))
-            cb.setChecked(true);
-        }else
-            cb.setChecked(false);
-
+        cb.setChecked(taskItem.isChecked());
         cb.setOnClickListener(listener);
 
         if(Shared.cbintmap==null)
@@ -56,8 +54,10 @@ public class TaskAdapter extends ArrayAdapter<String>{
         Shared.cbintmap.put(cb,position);
 
         TextView tv=(TextView)v.findViewById(R.id.textView4);
-        tv.setText(str[0]);
-
+        if(taskItem.getDate()!=null)
+            tv.setText(str+"\t\t"+ DateUtils.formatDate(taskItem.getDate(),"MM/dd/yyyy"));
+        else
+            tv.setText(str);
 
         return v;
     }

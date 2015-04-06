@@ -18,6 +18,7 @@ public class AddingContact extends ActionBarActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Add Contact");
         setContentView(R.layout.activity_adding_contact);
         name=(TextView)findViewById(R.id.name);
         email=(TextView)findViewById(R.id.email);

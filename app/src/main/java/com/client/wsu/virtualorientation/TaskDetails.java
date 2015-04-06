@@ -21,6 +21,7 @@ public class TaskDetails extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Details");
         setContentView(R.layout.activity_task_details);
         b=(TextView)findViewById(R.id.details);
         RelativeLayout lay=(RelativeLayout)findViewById(R.id.rellay);
@@ -32,12 +33,12 @@ public class TaskDetails extends ActionBarActivity {
         rb.setChecked(false);
         switch (Shared.running){
             case 0:
-                if(Shared.reqtasks.get(Shared.postition).split("#").length>1) {
+                if(Shared.reqtasks.get(Shared.postition).isShared()) {
                     rb.setChecked(true);
                     vg.addView(tb);
                 }break;
             case 1:
-                if(Shared.unreqtasks.get(Shared.postition).split("#").length>1) {
+                if(Shared.unreqtasks.get(Shared.postition).isShared()) {
                     rb.setChecked(true);
                     vg.addView(tb);
                 }break;

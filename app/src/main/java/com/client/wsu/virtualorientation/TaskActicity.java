@@ -1,38 +1,83 @@
 package com.client.wsu.virtualorientation;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.client.wsu.shared.Shared;
+import com.client.wsu.simplejava.TaskItem;
+
+import org.apache.http.impl.cookie.DateUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
-public class TaskActicity extends ActionBarActivity implements View.OnClickListener{
-    EditText name,date,details;
+public class TaskActicity extends ActionBarActivity implements View.OnClickListener {
+    EditText name, date, details;
+    private DatePickerDialog toDatePickerDialog;
+
+    private SimpleDateFormat dateFormatter;
     CheckBox cb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Add Task");
         setContentView(R.layout.activity_task_acticity);
-        Button b=(Button)findViewById(R.id.button3);
+        Button b = (Button) findViewById(R.id.button3);
+        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         b.setOnClickListener(this);
-        name=(EditText)findViewById(R.id.name);
-        date=(EditText)findViewById(R.id.date);
-        details=(EditText)findViewById(R.id.details);
-        cb=(CheckBox)findViewById(R.id.checkBox);
-    }
+        name = (EditText) findViewById(R.id.name);
+        date = (EditText) findViewById(R.id.date);
+
+        details = (EditText) findViewById(R.id.details);
+        cb = (CheckBox) findViewById(R.id.checkBox);
+        Calendar newCalendar = Calendar.getInstance();
+        toDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                date.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        date.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.i("Yes got here","Hot");
+                toDatePickerDialog.show();
+            }
+        });
+
+        date.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                toDatePickerDialog.show();
+                return true;
+            }
+        });
+
+}
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_adding_contact, menu);
-        MenuItem item=menu.findItem(R.id.notification_settings);
+        MenuItem item = menu.findItem(R.id.notification_settings);
         item.setTitle(Shared.notifyies[Shared.noti]);
 
         return true;
@@ -45,15 +90,15 @@ public class TaskActicity extends ActionBarActivity implements View.OnClickListe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }else if(id==R.id.notification_settings){
-            if(item.getTitle().equals(Shared.notifyies[0])) {
+        } else if (id == R.id.notification_settings) {
+            if (item.getTitle().equals(Shared.notifyies[0])) {
                 item.setTitle(Shared.notifyies[1]);
-                Shared.noti=1;
+                Shared.noti = 1;
                 Toast.makeText(this, "You Turned OFF Notifications", Toast.LENGTH_LONG).show();
 
-            }else if(item.getTitle().equals(Shared.notifyies[1])) {
+            } else if (item.getTitle().equals(Shared.notifyies[1])) {
                 item.setTitle(Shared.notifyies[0]);
-                Shared.noti=0;
+                Shared.noti = 0;
                 Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
             }
         }
@@ -62,28 +107,32 @@ public class TaskActicity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(cb.isChecked()){
+        if (cb.isChecked()) {
             Toast.makeText(this, "Saved and Shared", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         }
-        switch (Shared.running){
-            case 0:
-                if(cb.isChecked()) {
-                    Shared.reqtasks.add(name.getText().toString() + " : " + date.getText().toString()+" # shared");
-                }else{
-                    Shared.reqtasks.add(name.getText().toString() + " : " + date.getText().toString());
-                }
-                Shared.reqtasksdetails.add(details.getText().toString());
-                break;
-            case 1:
-                if(cb.isChecked()) {
-                    Shared.unreqtasks.add(name.getText().toString() + " : " + date.getText().toString() + " # shared");
-                }else{
-                    Shared.unreqtasks.add(name.getText().toString() + " : " + date.getText().toString());
-                }
-                Shared.unreqtasksdetails.add(details.getText().toString());
-                break;
+        try {
+            switch (Shared.running) {
+                case 0:
+                    if(date.getText().length()>4) {
+                        Shared.reqtasks.add(new TaskItem(name.getText().toString(), DateUtils.parseDate(date.getText().toString(), new String[]{"MM/dd/yyyy"}), cb.isChecked()));
+                    }else{
+                        Shared.reqtasks.add(new TaskItem(name.getText().toString(), cb.isChecked()));
+                    }
+                    Shared.reqtasksdetails.add(details.getText().toString());
+                    break;
+                case 1:
+                    if(date.getText().length()>4) {
+                        Shared.unreqtasks.add(new TaskItem(name.getText().toString(), DateUtils.parseDate(date.getText().toString(), new String[]{"MM/dd/yyyy"}), cb.isChecked()));
+                    }else{
+                        Shared.unreqtasks.add(new TaskItem(name.getText().toString(), cb.isChecked()));
+                    }
+                    Shared.unreqtasksdetails.add(details.getText().toString());
+                    break;
+            }
+        } catch (Exception e) {
+            Log.e("error:",e.getMessage(),e);
         }
         this.finish();
     }

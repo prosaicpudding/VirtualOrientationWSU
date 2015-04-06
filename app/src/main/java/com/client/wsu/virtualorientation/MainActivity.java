@@ -19,6 +19,11 @@ import android.widget.Toast;
 
 import com.client.wsu.shared.Shared;
 import com.client.wsu.simplejava.TaskAdapter;
+import com.client.wsu.simplejava.TaskItem;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener,AdapterView.OnItemClickListener {
@@ -67,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 if(Shared.reqtasks!=null && Shared.unreqtasks!=null) {
                     adapterViewFilter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Shared.types);
                     mListViewFilter.setAdapter(adapterViewFilter);
-                    adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, Shared.reqtasks,new CheckBoxListener());
+                    adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, sort(Shared.reqtasks),new CheckBoxListener());
                     mListView.setAdapter(adapterView);
                     mListView.setClickable(true);
                     mListView.invalidate();
@@ -130,13 +135,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if(position==0){
-                adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, Shared.reqtasks,new CheckBoxListener());
+                adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, sort(Shared.reqtasks),new CheckBoxListener());
                 mListView.setAdapter(adapterView);
                 mListView.setClickable(true);
                 mListView.invalidate();
                 Shared.running=0;
             }else{
-                adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, Shared.unreqtasks,new CheckBoxListener());
+                adapterView=new TaskAdapter(this,android.R.layout.simple_spinner_item, sort(Shared.unreqtasks),new CheckBoxListener());
                 mListView.setAdapter(adapterView);
                 mListView.setClickable(true);
                 mListView.invalidate();
@@ -178,38 +183,35 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         public void onClick(View v) {
             Log.i("Log","Check Box CLicked");
             if(mListViewFilter.getSelectedItemPosition()==0){
-                String str[]=Shared.reqtasks.get(Shared.cbintmap.get((CheckBox)v)).split("bca");
-                if(str.length>1){
-                    if(str[1].equals("1"))
-                        Shared.reqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca0");
-                    else
-                        Shared.reqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca1");
-                }else{
-                    Shared.reqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca1");
-                }
 
-                adapterView=new TaskAdapter(ctx,android.R.layout.simple_spinner_item, Shared.reqtasks,new CheckBoxListener());
+                TaskItem taskItem=Shared.reqtasks.get(Shared.cbintmap.get((CheckBox)v));
+                taskItem.setChecked(!taskItem.isChecked());
+                adapterView=new TaskAdapter(ctx,android.R.layout.simple_spinner_item, sort(Shared.reqtasks),new CheckBoxListener());
                 mListView.setAdapter(adapterView);
                 mListView.setClickable(true);
                 mListView.invalidate();
             }else{
 
-                String str[]=Shared.unreqtasks.get(Shared.cbintmap.get((CheckBox)v)).split("bca");
-                if(str.length>1){
-                    if(str[1].equals("1"))
-                        Shared.unreqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca0");
-                    else
-                        Shared.unreqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca1");
-                }else{
-                    Shared.unreqtasks.set(Shared.cbintmap.get((CheckBox)v),str[0]+"bca1");
-                }
+                TaskItem taskItem=Shared.unreqtasks.get(Shared.cbintmap.get((CheckBox) v));
+                taskItem.setChecked(!taskItem.isChecked());
 
-                adapterView=new TaskAdapter(ctx,android.R.layout.simple_spinner_item, Shared.unreqtasks,new CheckBoxListener());
+                adapterView=new TaskAdapter(ctx,android.R.layout.simple_spinner_item, sort(Shared.unreqtasks),new CheckBoxListener());
                 mListView.setAdapter(adapterView);
                 mListView.setClickable(true);
                 mListView.invalidate();
             }
 
         }
+    }
+
+    public List<TaskItem> sort(List<TaskItem> list){
+        Collections.sort(list, new Comparator<TaskItem>() {
+            public int compare(TaskItem o1, TaskItem o2) {
+                if (o1.getDate() == null || o2.getDate() == null)
+                    return 0;
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        return list;
     }
 }

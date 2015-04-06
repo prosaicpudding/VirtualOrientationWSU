@@ -7,7 +7,6 @@
     tools:context="com.client.wsu.virtualorientation.TaskDetails">
 
     <TextView
-        android:text="@string/hello_world"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
