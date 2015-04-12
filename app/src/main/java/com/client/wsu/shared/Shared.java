@@ -45,7 +45,7 @@ public class Shared {
     public static List<String> unreqtasksdetails;
 
     public static int postition=0;
-    public static String notifyies[]={"Notifications OFF","Notifications ON"};
+    public static String notifyies[]={"Turn Notifications OFF","Turn Notifications ON"};
     public static int noti=0;
 
     public static void loadTasks(){
@@ -95,16 +95,16 @@ public class Shared {
                 "4.Register\n");
         reqtasksdetails.add("1. Go to Sloan\n" +
                 "2.Go to third floor\n" +
-                "3.Mett sidra at room 303\n");
+                "3.Meet sidra at room 303\n");
         reqtasksdetails.add("1. Go to Sloan\n" +
                 "2.Go to third floor\n" +
-                "3.Mett sidra at room 303\n");
+                "3.Meet sidra at room 303\n");
         reqtasksdetails.add("1. Go to Sloan\n" +
                 "2.Go to third floor\n" +
-                "3.Mett sidra at room 303\n");
+                "3.Meet sidra at room 303\n");
         reqtasksdetails.add("1. Go to Sloan\n" +
                 "2.Go to third floor\n" +
-                "3.Mett sidra at room 303\n");
+                "3.Meet sidra at room 303\n");
         reqtasksdetails.add("1. Go to Sloan\n" +
                 "2.Go to third floor\n" +
                 "3.Mett sidra at room 303\n");
@@ -155,10 +155,10 @@ public class Shared {
                 "3.Get down at Chinese restaurant\n");
 
         advisors = new ArrayList<>();
-        advisors.add("Name:Sidra");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.add("Name:Gleson");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.add("Name:Amanda");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
-        advisors.add("Name:Nicole");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
+        advisors.add("Sidra Gleason");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
+        advisors.add("Amanda Sharp");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
+        advisors.add("Duke Wellington");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
+        advisors.add("Jackie Chan");// \n Number: 234234 \n Email: kfghkfjgh@dkjfhkgjh.com");
         }catch(Exception e){
             Log.i("Error:",e.getMessage(),e);
         }
