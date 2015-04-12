@@ -23,6 +23,7 @@
         android:id="@+id/spinner"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
+
         style="@style/Widget.AppCompat.Light.DropDownItem.Spinner" />
     <ListView
         android:layout_width="match_parent"
@@ -30,6 +31,7 @@
         android:id="@+id/listView"
         android:layout_below="@+id/spinner"
         android:focusable="true"
+        android:fadeScrollbars="false"
         android:inputType="textMultiLine"
         android:layout_above="@+id/button2"/>
 
@@ -38,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="+"
+        android:textColor="#FFFFFF"
         android:id="@+id/add"
         android:layout_alignParentBottom="true"
         />
@@ -48,7 +51,7 @@
         android:focusable="true"
         android:id="@+id/textView5"
         android:layout_above="@+id/add"
-
+        android:fadeScrollbars="false"
         />
     <LinearLayout
         android:orientation="horizontal"
@@ -64,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="New Task"
+        android:textColor="#FFFFFF"
         android:id="@+id/button2"
         android:layout_above="@+id/border"
 

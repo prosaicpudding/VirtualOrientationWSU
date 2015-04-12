@@ -1,7 +1,8 @@
 package com.client.wsu.virtualorientation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import android.widget.ToggleButton;
 import com.client.wsu.shared.Shared;
 
 
-public class TaskDetails extends ActionBarActivity {
+public class TaskDetails extends Activity {
 
     TextView b;
     @Override
@@ -89,7 +90,12 @@ public class TaskDetails extends ActionBarActivity {
                 Shared.noti=0;
                 Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
             }
+        }else if(id==R.id.reset){
+            Intent i=new Intent(this,Questionnaire.class);
+            startActivity(i);
+            this.finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

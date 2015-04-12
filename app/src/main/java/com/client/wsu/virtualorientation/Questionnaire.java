@@ -1,8 +1,8 @@
 package com.client.wsu.virtualorientation;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 
-public class Questionnaire extends ActionBarActivity implements View.OnClickListener {
+public class Questionnaire extends Activity implements View.OnClickListener {
 
     private final String[] majors = {"Computer Science","Electronics and Electricals"};
     private final String[] level = {"UnderGrad", "Graduate"};

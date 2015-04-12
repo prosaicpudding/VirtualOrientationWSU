@@ -1,12 +1,11 @@
 package com.client.wsu.shared;
 
 import android.content.SharedPreferences;
-
 import android.util.Log;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 
 import com.client.wsu.simplejava.TaskItem;
-
 
 import org.apache.http.impl.cookie.DateUtils;
 
@@ -36,6 +35,8 @@ public class Shared {
     public static List<String> advisors;
 
     public static Map<CheckBox,Integer> cbintmap;
+    public static Map<ImageButton,Integer> bintmap;
+    public static Map<ImageButton,Integer> dintmap;
     public static int running=0;
     public static List<TaskItem> reqtasks;
     public static List<TaskItem> unreqtasks;

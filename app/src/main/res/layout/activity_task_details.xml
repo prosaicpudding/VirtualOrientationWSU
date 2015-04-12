@@ -20,7 +20,7 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shared"
+            android:text="Share this to-do with other students."
             android:id="@+id/radioButton"
             android:layout_alignParentTop="true" />
 

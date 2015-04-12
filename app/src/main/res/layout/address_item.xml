@@ -11,22 +11,24 @@
         android:layout_centerVertical="true"
         android:id="@+id/textView41" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Call"
+        android:src="@drawable/call"
+        android:background="@android:color/transparent"
         android:id="@+id/button4"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/textView41"
         android:layout_marginLeft="5dp"
         />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:background="@android:color/transparent"
         android:id="@+id/button5"
         android:layout_centerVertical="true"
+        android:src="@drawable/email"
         android:layout_toRightOf="@+id/button4"
         android:layout_marginLeft="5dp" />
 

@@ -12,7 +12,6 @@ public class TaskItem{
     boolean checked;
     boolean shared;
 
-
     public TaskItem(String name, Date date) {
         this.date = date;
         this.name=name;
@@ -39,7 +38,6 @@ public class TaskItem{
     }
 
     public TaskItem(String name,boolean shared) {
-
         this.name=name;
         checked=false;
         this.shared=shared;

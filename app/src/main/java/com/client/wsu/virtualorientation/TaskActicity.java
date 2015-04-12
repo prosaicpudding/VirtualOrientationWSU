@@ -1,8 +1,9 @@
 package com.client.wsu.virtualorientation;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class TaskActicity extends ActionBarActivity implements View.OnClickListener {
+public class TaskActicity extends Activity implements View.OnClickListener {
     EditText name, date, details;
     private DatePickerDialog toDatePickerDialog;
 
@@ -101,7 +102,12 @@ public class TaskActicity extends ActionBarActivity implements View.OnClickListe
                 Shared.noti = 0;
                 Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
             }
+        }else if(id==R.id.reset){
+            Intent i=new Intent(this,Questionnaire.class);
+            startActivity(i);
+            this.finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
