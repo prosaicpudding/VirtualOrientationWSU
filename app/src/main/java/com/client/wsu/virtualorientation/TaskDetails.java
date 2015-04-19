@@ -30,7 +30,7 @@ public class TaskDetails extends Activity {
         b = (TextView) findViewById(R.id.details);
         RelativeLayout lay = (RelativeLayout) findViewById(R.id.rellay);
         LinearLayout view = (LinearLayout) b.getParent();
-        RadioButton rb = (RadioButton) findViewById(R.id.radioButton);
+        TextView rb = (TextView) findViewById(R.id.radioButton);
         ViewGroup vg = (ViewGroup) lay;
         Button ub = (Button) findViewById(R.id.button6);
         Button db = (Button) findViewById(R.id.button7);
@@ -58,7 +58,8 @@ public class TaskDetails extends Activity {
         db.setOnClickListener(lis);
         //ToggleButton tb=(ToggleButton)findViewById(R.id.toggleButton);
         //vg.removeView(tb);
-        rb.setChecked(ts.isShared());
+        if (ts.isShared()==true)
+            rb.setText("Shared by other students");
         int i = 1;
         TextView tv = new TextView(this);
         switch (Shared.running) {

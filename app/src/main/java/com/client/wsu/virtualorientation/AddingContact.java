@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.client.wsu.shared.Shared;
 
 
-public class AddingContact extends Activity {
+public class AddingContact extends Activity implements View.OnClickListener{
 
     TextView name,email,phone,extra;
     @Override
@@ -23,6 +25,8 @@ public class AddingContact extends Activity {
         email=(TextView)findViewById(R.id.email);
         phone=(TextView)findViewById(R.id.phone);
         extra=(TextView)findViewById(R.id.extras);
+        Button b=(Button)findViewById(R.id.save);
+        b.setOnClickListener(this);
 
     }
 
@@ -53,12 +57,6 @@ public class AddingContact extends Activity {
                 Shared.noti=0;
                 Toast.makeText(this, "You Turned ON Notifications", Toast.LENGTH_LONG).show();
 
-        }else if(id==R.id.save){
-                if(extra.getText().length()<1)
-                    Shared.advisors.add("Name:" + name.getText() + " \n Phone:" + phone.getText() + " \n Email:" + email.getText());
-                else
-                    Shared.advisors.add("Name:" + name.getText() + " \n Phone:" + phone.getText() + " \n Email:" + email.getText()+" \n Extra:"+extra.getText());
-                this.finish();
             }
         }else if(id==R.id.reset){
             Intent i=new Intent(this,Questionnaire.class);
@@ -70,5 +68,14 @@ public class AddingContact extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onClick(View v) {
+      if(v.getId()==R.id.save) {
+          if (extra.getText().length() < 1)
+              Shared.advisors.add(name.getText().toString());
+          else
+              Shared.advisors.add(name.getText().toString());
+      }
+        this.finish();
+    }
 }
